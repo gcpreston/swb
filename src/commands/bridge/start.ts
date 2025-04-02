@@ -10,16 +10,16 @@ export default class Start extends Command {
   async run(): Promise<void> {
     const { args, flags } = await this.parse(Start);
 
-    pm2.connect((err) => {
+    pm2.connect((err: any) => {
       if (err) {
         console.error(err);
         process.exit(2);
       }
 
       pm2.start({
-        script: 'lib/slippi-web-bridge/build/index.js',
+        script: 'dist/runLocalBridge.js',
         name: 'slippi-web-bridge'
-      }, (err, apps) => {
+      }, (err: any) => {
         if (err) {
           console.error(err);
           return pm2.disconnect();

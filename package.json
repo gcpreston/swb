@@ -1,7 +1,7 @@
 {
   "name": "swb",
   "description": "Forward live Slippi data to a web interface.",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Graham Preston",
   "bin": {
     "swb": "./bin/run.js"
@@ -11,7 +11,8 @@
     "@oclif/core": "^4",
     "@oclif/plugin-help": "^6",
     "@oclif/plugin-plugins": "^5",
-    "pm2": "^6.0.5"
+    "pm2": "^6.0.5",
+    "slippi-web-bridge": "file:../slippi-web-bridge"
   },
   "devDependencies": {
     "@eslint/compat": "^1",
