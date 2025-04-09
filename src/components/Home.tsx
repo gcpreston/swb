@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Box, useApp, useInput } from "ink";
+import { Bridge, SlippiEvent, GameStartType, GameEndType } from "slippi-web-bridge";
+
 import { useStdoutDimensions } from "../hooks/useStdoutDimensions.js";
 import Title from "./Title.js";
 import Versus from "./Versus.js";
 import Footer from "./Footer.js";
 
-const Home = () => {
-  const [counter, setCounter] = useState(0);
+const Home = ({ bridge }: { bridge: Bridge }) => {
+  const [gameSettings, setGameSettings] = useState<GameStartType | null>(null);
 
-	useEffect(() => {
-		const timer = setInterval(() => {
-			setCounter(previousCounter => previousCounter + 1);
-		}, 100);
+  useEffect(() => {
+    bridge.on(SlippiEvent.GAME_START, (payload: GameStartType) => {
+      setGameSettings(payload);
+    });
 
-		return () => {
-			clearInterval(timer);
-		};
-	}, []);
+    bridge.on(SlippiEvent.GAME_END, (payload: GameEndType) => {
+      setGameSettings(null);
+    });
+
+    return () => {
+      bridge.removeAllListeners();
+    }
+  }, []);
 
   const { exit } = useApp();
 
@@ -31,7 +37,7 @@ const Home = () => {
   return (
     <Box height={y} alignItems="center" justifyContent="space-between" flexDirection="column">
       <Title />
-      <Versus />
+      <Versus gameSettings={gameSettings} />
       <Footer />
     </Box>
   );

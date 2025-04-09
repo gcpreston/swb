@@ -1,7 +1,15 @@
 import { Command } from '@oclif/core'
 import { render } from 'ink';
 import React from 'react';
+import {
+	Bridge,
+	SLIPPI_LOCAL_ADDR,
+	SLIPPI_PORTS
+} from "slippi-web-bridge";
+
 import Home from '../../components/Home.js';
+
+const LOCAL_WEB = "ws://localhost:4000/bridge_socket/websocket";
 
 export default class Start extends Command {
   static description = 'Start it';
@@ -19,7 +27,13 @@ export default class Start extends Command {
 		// 	process.stdout.write("\x1b[?1049l") // leave alternate buffer
 		// });
 
-		const app = render(<Home />);
+		const bridge = new Bridge(
+			SLIPPI_LOCAL_ADDR,
+			SLIPPI_PORTS.DEFAULT,
+			LOCAL_WEB
+		);
+
+		const app = render(<Home bridge={bridge} />);
 		await app.waitUntilExit();
   }
 }
