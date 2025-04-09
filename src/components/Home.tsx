@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Text, useApp, useInput } from 'ink';
-import { useStdoutDimensions } from '../hooks/useStdoutDimensions.js';
+import React, { useState, useEffect } from "react";
+import { Box, useApp, useInput } from "ink";
+import { useStdoutDimensions } from "../hooks/useStdoutDimensions.js";
+import Title from "./Title.js";
+import Versus from "./Versus.js";
+import Footer from "./Footer.js";
 
 const Home = () => {
   const [counter, setCounter] = useState(0);
@@ -26,14 +29,10 @@ const Home = () => {
   const [x, y] = useStdoutDimensions();
 
   return (
-    <Box height={y} alignItems='center' justifyContent='space-between' flexDirection='column'>
-      <Box>
-        <Text>{counter} reactive text</Text>
-      </Box>
-
-      <Box>
-        <Text color='gray'>q to quit</Text>
-      </Box>
+    <Box height={y} alignItems="center" justifyContent="space-between" flexDirection="column">
+      <Title />
+      <Versus />
+      <Footer />
     </Box>
   );
 };
