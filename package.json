@@ -11,7 +11,9 @@
     "@oclif/core": "^4",
     "@oclif/plugin-help": "^6",
     "@oclif/plugin-plugins": "^5",
+    "ink": "^5.2.0",
     "pm2": "^6.0.5",
+    "react": "^18.3.1",
     "slippi-web-bridge": "file:../slippi-web-bridge"
   },
   "devDependencies": {
@@ -21,6 +23,7 @@
     "@types/chai": "^4",
     "@types/mocha": "^10",
     "@types/node": "^18",
+    "@types/react": "^19.1.0",
     "chai": "^4",
     "eslint": "^9",
     "eslint-config-oclif": "^6",
