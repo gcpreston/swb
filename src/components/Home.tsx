@@ -16,6 +16,7 @@ const LOCAL_WEB = "ws://localhost:4000/bridge_socket/websocket";
 
 const Home = () => {
   const [slippiConnected, setSlippiConnected] = useState<boolean>(false);
+  const [slippiConnectionError, setSlippiConnectionError] = useState<boolean>(false);
   const [serverConnected, setServerConnected] = useState<boolean>(false);
   const connected = useMemo<boolean>(() => slippiConnected && serverConnected, [slippiConnected, serverConnected]);
   const [gameSettings, setGameSettings] = useState<GameStartType | null>(null);
@@ -24,12 +25,16 @@ const Home = () => {
   const { exit } = useApp();
 
   useEffect(() => {
-    const bridge = new Bridge(
-      SLIPPI_LOCAL_ADDR,
-      SLIPPI_PORTS.DEFAULT,
-      LOCAL_WEB
-    );
+    const bridge = new Bridge();
     setBridge(bridge);
+
+    bridge.connect(SLIPPI_LOCAL_ADDR, SLIPPI_PORTS.DEFAULT, LOCAL_WEB)
+      .catch((_error) => {
+        setSlippiConnectionError(true);
+        bridge?.disconnect();
+        exit();
+        process.exit();
+      });
 
     bridge.on(BridgeState.SLIPPI_CONNECTING, () => {
       setServerConnected(true);
@@ -57,7 +62,7 @@ const Home = () => {
 
   return (
     <Box flexDirection="column">
-      <Status slippiConnected={slippiConnected} serverConnected={serverConnected} />
+      <Status slippiConnected={slippiConnected} slippiConnectionError={slippiConnectionError} serverConnected={serverConnected} />
       {connected && <Versus gameSettings={gameSettings} />}
       <Footer />
     </Box>

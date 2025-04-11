@@ -4,10 +4,11 @@ import Spinner from "ink-spinner";
 
 type StatusProps = {
   slippiConnected: boolean,
+  slippiConnectionError: boolean,
   serverConnected: boolean
 };
 
-const Status = ({ slippiConnected, serverConnected }: StatusProps) => {
+const Status = ({ slippiConnected, slippiConnectionError, serverConnected }: StatusProps) => {
   // TODO: Handle errors and stuff
   return (
     <>
@@ -17,7 +18,13 @@ const Status = ({ slippiConnected, serverConnected }: StatusProps) => {
           {slippiConnected ?
             <Box><Text color="green">•</Text><Text> Slippi connected</Text></Box>
             :
-            <Box><Spinner type="dots" /><Text> Slippi connecting...</Text></Box>
+            <>
+              {slippiConnectionError ?
+                <Box><Text color="red">•</Text><Text> Slippi connection error</Text></Box>
+                :
+                <Box><Spinner type="dots" /><Text> Slippi connecting...</Text></Box>
+              }
+            </>
           }
         </>
         :
