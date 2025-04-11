@@ -1,5 +1,6 @@
 import React from "react";
-import { Text } from "ink";
+import { Box, Text } from "ink";
+import Spinner from "ink-spinner";
 
 type StatusProps = {
   slippiConnected: boolean,
@@ -7,12 +8,21 @@ type StatusProps = {
 };
 
 const Status = ({ slippiConnected, serverConnected }: StatusProps) => {
-  console.log('rendering status with', slippiConnected, serverConnected);
   // TODO: Handle errors and stuff
   return (
     <>
-      {serverConnected ? <Text>🟢 Server connected</Text> : null}
-      {slippiConnected ? <Text>🟢 Slippi connected</Text> : null}
+      {serverConnected ?
+        <>
+          <Box><Text color="green">•</Text><Text> Server connected</Text></Box>
+          {slippiConnected ?
+            <Box><Text color="green">•</Text><Text> Slippi connected</Text></Box>
+            :
+            <Box><Spinner type="dots" /><Text> Slippi connecting...</Text></Box>
+          }
+        </>
+        :
+        <Box><Spinner type="dots" /><Text> Server connecting...</Text></Box>
+      }
     </>
   );
 };
