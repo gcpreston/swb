@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Box, useApp, useInput } from "ink";
+import { Box, useApp, useInput, Text } from "ink";
 import {
   Bridge,
   SLIPPI_LOCAL_ADDR,
   SLIPPI_PORTS,
-  BridgeState,
+  BridgeEvent,
+  DisconnectReason,
   GameStartType
 } from "slippi-web-bridge";
 
@@ -15,12 +16,16 @@ import Footer from "./Footer.js";
 const LOCAL_WEB = "ws://localhost:4000/bridge_socket/websocket";
 
 const Home = () => {
-  const [slippiConnected, setSlippiConnected] = useState<boolean>(false);
-  const [slippiConnectionError, setSlippiConnectionError] = useState<boolean>(false);
-  const [serverConnected, setServerConnected] = useState<boolean>(false);
-  const connected = useMemo<boolean>(() => slippiConnected && serverConnected, [slippiConnected, serverConnected]);
-  const [gameSettings, setGameSettings] = useState<GameStartType | null>(null);
   const [bridge, setBridge] = useState<Bridge | undefined>(undefined);
+  const [bridgeId, setBridgeId] = useState<string | null>(null);
+  const [slippiConnected, setSlippiConnected] = useState<boolean>(false);
+  const [gameSettings, setGameSettings] = useState<GameStartType | null>(null);
+  const [disconnectReason, setDisconnectReason] = useState<DisconnectReason | null>(null);
+
+  const connected = useMemo<boolean>(
+    () => Boolean(bridgeId) && slippiConnected && !Boolean(disconnectReason),
+    [bridgeId, slippiConnected, disconnectReason]
+  );
 
   const { exit } = useApp();
 
@@ -28,24 +33,25 @@ const Home = () => {
     const bridge = new Bridge();
     setBridge(bridge);
 
-    bridge.connect(SLIPPI_LOCAL_ADDR, SLIPPI_PORTS.DEFAULT, LOCAL_WEB)
-      .catch((_error) => {
-        setSlippiConnectionError(true);
-        bridge?.disconnect();
-        exit();
-        process.exit();
-      });
+    bridge.connect(SLIPPI_LOCAL_ADDR, SLIPPI_PORTS.DEFAULT, LOCAL_WEB);
 
-    bridge.on(BridgeState.SLIPPI_CONNECTING, () => {
-      setServerConnected(true);
+    bridge.on(BridgeEvent.WS_CONNECTED, (bridgeId: string) => {
+      setBridgeId(bridgeId);
     });
-    bridge.on(BridgeState.WAITING_FOR_GAME, () => {
+    bridge.on(BridgeEvent.SLIPPI_CONNECTED, () => {
       setSlippiConnected(true);
-      setGameSettings(null);
     });
-    bridge.on(BridgeState.IN_GAME, (payload: GameStartType) => {
+    bridge.on(BridgeEvent.GAME_START, (payload: GameStartType) => {
       setGameSettings(payload);
     });
+    bridge.on(BridgeEvent.GAME_END, () => {
+      setGameSettings(null);
+    })
+    bridge.on(BridgeEvent.DISCONNECTED, (reason: DisconnectReason) => {
+      setDisconnectReason(reason);
+      // Give the app time to render disconnection status before exiting.
+      setTimeout(exit, 100);
+    })
 
     return () => {
       bridge.removeAllListeners();
@@ -54,15 +60,17 @@ const Home = () => {
 
 	useInput((input, key) => {
 	  if (input === "q" || key.escape) {
-      bridge?.disconnect();
-      exit();
-      process.exit();
+      bridge?.quit();
 	  }
 	});
 
   return (
     <Box flexDirection="column">
-      <Status slippiConnected={slippiConnected} slippiConnectionError={slippiConnectionError} serverConnected={serverConnected} />
+      <Status
+        bridgeId={bridgeId}
+        slippiConnected={slippiConnected}
+        disconnectReason={disconnectReason}
+      />
       {connected && <Versus gameSettings={gameSettings} />}
       <Footer />
     </Box>

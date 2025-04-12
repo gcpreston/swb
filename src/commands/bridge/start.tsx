@@ -24,6 +24,12 @@ export default class Start extends Command {
 
 		const app = render(<Home />, { patchConsole: false });
 		await app.waitUntilExit();
-		console.log('after wait for exit');
+
+		// After DolphinConnection disconnect, the node process does not automatically
+		// exit, unlike other EventListeners after being closed. I believe this is due
+		// to enet not totally shutting down.
+		// For this reason, the process is manually exited at the end, as this mimics
+		// the behavior of the Ctrl + C which would otherwise have to be performed.
+		process.exit();
   }
 }
