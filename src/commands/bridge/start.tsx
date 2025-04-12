@@ -13,12 +13,6 @@ export default class Start extends Command {
   async run(): Promise<void> {
     const { args, flags } = await this.parse(Start);
 
-		// process.stdout.write("\x1b[?1049h"); // enter alternate buffer
-
-		// process.on("exit", () => {
-		// 	process.stdout.write("\x1b[?1049l") // leave alternate buffer
-		// });
-
 		// Don't show any console output from slippi-js or slippi-web-bridge
 		patchConsole((_stream, _data) => {});
 
