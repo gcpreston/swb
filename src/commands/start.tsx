@@ -2,7 +2,7 @@ import { Command } from '@oclif/core'
 import { render } from 'ink';
 import React from 'react';
 
-import Home from '../../components/Home.js';
+import Home from '../components/Home.js';
 import patchConsole from 'patch-console';
 
 export default class Start extends Command {

@@ -9,8 +9,6 @@
   "bugs": "https://github.com/gcpreston/slippi-web-bridge/issues",
   "dependencies": {
     "@oclif/core": "^4",
-    "@oclif/plugin-help": "^6",
-    "@oclif/plugin-plugins": "^5",
     "ink": "^5.2.0",
     "ink-spinner": "^5.0.0",
     "patch-console": "^2.0.0",
@@ -60,12 +58,15 @@
     ],
     "topicSeparator": " ",
     "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
+      "bridge": {
+        "description": "Manage the Slippi web bridge"
       }
+    },
+    "macos": {
+      "identifier": "com.swb.cli"
     }
   },
-  "repository": "gcpreston/slippi-web-bridge",
+  "repository": "github:gcpreston/swb",
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
     "lint": "eslint",
