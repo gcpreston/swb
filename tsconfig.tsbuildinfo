@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/runlocalbridge.ts","./src/commands/bridge/start.ts","./src/commands/bridge/status.ts","./src/commands/bridge/stop.ts","./src/commands/hello/index.ts","./src/commands/hello/world.ts","./src/common/messages.ts"],"version":"5.8.2"}
+{"root":["./src/index.ts","./src/commands/bridge/start.tsx","./src/common/ids.ts","./src/common/util.ts","./src/components/footer.tsx","./src/components/gamedisplay.tsx","./src/components/home.tsx","./src/components/status.tsx","./src/components/versus.tsx","./src/hooks/usestdoutdimensions.ts"],"version":"5.8.2"}
