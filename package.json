@@ -1,6 +1,6 @@
 {
   "name": "swb",
-  "description": "Forward live Slippi data to a web interface.",
+  "description": "A simple CLI for slippi-web-bridge.",
   "version": "0.1.0",
   "author": "Graham Preston",
   "bin": {
@@ -13,7 +13,7 @@
     "ink-spinner": "^5.0.0",
     "patch-console": "^2.0.0",
     "react": "^18.3.1",
-    "slippi-web-bridge": "file:../slippi-web-bridge"
+    "slippi-web-bridge": "^0.1.2"
   },
   "devDependencies": {
     "@eslint/compat": "^1",
