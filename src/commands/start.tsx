@@ -1,22 +1,29 @@
-import { Command } from '@oclif/core'
+import { Command, Flags } from '@oclif/core'
 import { render } from 'ink';
 import React from 'react';
+import patchConsole from 'patch-console';
+import { DEFAULT_WEB_URL } from 'slippi-web-bridge';
 
 import Home from '../components/Home.js';
-import patchConsole from 'patch-console';
 
 export default class Start extends Command {
   static description = 'Start it';
   static examples = [
     `TODO :)`,
   ];
+
+	static flags = {
+		sink: Flags.string(),
+	}
+
   async run(): Promise<void> {
-    const { args, flags } = await this.parse(Start);
+    const { flags } = await this.parse(Start);
+		const sink = flags.sink || DEFAULT_WEB_URL
 
 		// Don't show any console output from slippi-js or slippi-web-bridge
 		patchConsole((_stream, _data) => {});
 
-		const app = render(<Home />, { patchConsole: false });
+		const app = render(<Home sink={sink} />, { patchConsole: false });
 		await app.waitUntilExit();
 
 		// After DolphinConnection disconnect, the node process does not automatically

@@ -13,9 +13,13 @@ import Status from "./Status.js";
 import Versus from "./Versus.js";
 import Footer from "./Footer.js";
 
-const LOCAL_WEB = "ws://localhost:4000/bridge_socket/websocket";
+// const LOCAL_WEB = "ws://localhost:4000/bridge_socket/websocket";
 
-const Home = () => {
+type HomeProps = {
+  sink: string
+};
+
+const Home = ({ sink }: HomeProps) => {
   const [bridge, setBridge] = useState<Bridge | undefined>(undefined);
   const [bridgeId, setBridgeId] = useState<string | null>(null);
   const [slippiConnected, setSlippiConnected] = useState<boolean>(false);
@@ -33,7 +37,7 @@ const Home = () => {
     const bridge = new Bridge();
     setBridge(bridge);
 
-    bridge.connect(SLIPPI_LOCAL_ADDR, SLIPPI_PORTS.DEFAULT, LOCAL_WEB);
+    bridge.connect(SLIPPI_LOCAL_ADDR, SLIPPI_PORTS.DEFAULT, sink);
 
     bridge.on(BridgeEvent.WS_CONNECTED, (bridgeId: string) => {
       setBridgeId(bridgeId);
