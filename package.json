@@ -1,7 +1,7 @@
 {
   "name": "@gcpreston/swb",
   "description": "A simple CLI for slippi-web-bridge.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Graham Preston",
   "bin": {
     "swb": "./bin/run.js"
