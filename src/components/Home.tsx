@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Box, useApp, useInput, Text } from "ink";
+import { Box, useApp, useInput } from "ink";
 import {
   Bridge,
   SLIPPI_LOCAL_ADDR,

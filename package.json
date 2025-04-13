@@ -22,7 +22,7 @@
     "@types/chai": "^4",
     "@types/mocha": "^10",
     "@types/node": "^18",
-    "@types/react": "^19.1.0",
+    "@types/react": "^18.3.1",
     "chai": "^4",
     "eslint": "^9",
     "eslint-config-oclif": "^6",
