@@ -5,8 +5,8 @@ Forward live Slippi data to a web interface.
 
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/swb.svg)](https://npmjs.org/package/swb)
-[![Downloads/week](https://img.shields.io/npm/dw/swb.svg)](https://npmjs.org/package/swb)
+[![Version](https://img.shields.io/npm/v/swb.svg)](https://npmjs.org/package/@gcpreston/swb)
+[![Downloads/week](https://img.shields.io/npm/dw/swb.svg)](https://npmjs.org/package/@gcpreston/swb)
 
 
 <!-- toc -->
