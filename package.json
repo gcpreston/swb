@@ -1,5 +1,5 @@
 {
-  "name": "swb",
+  "name": "@gcpreston/swb",
   "description": "A simple CLI for slippi-web-bridge.",
   "version": "0.1.0",
   "author": "Graham Preston",
@@ -37,11 +37,10 @@
     "node": ">=18.0.0"
   },
   "files": [
-    "./bin",
-    "./dist",
-    "./oclif.manifest.json"
+    "bin",
+    "dist",
+    "oclif.manifest.json"
   ],
-  "homepage": "https://github.com/gcpreston/slippi-web-bridge",
   "keywords": [
     "oclif"
   ],

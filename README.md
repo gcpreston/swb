@@ -16,11 +16,11 @@ Forward live Slippi data to a web interface.
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g swb
+$ npm install -g @gcpreston/swb
 $ swb COMMAND
 running command...
 $ swb (--version)
-swb/0.1.0 darwin-arm64 node-v23.10.0
+@gcpreston/swb/0.1.0 darwin-arm64 node-v23.10.0
 $ swb --help [COMMAND]
 USAGE
   $ swb COMMAND
