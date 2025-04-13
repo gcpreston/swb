@@ -30,6 +30,25 @@ USAGE
 # Commands
 <!-- commands -->
 * [`swb start`](#swb-start)
+
+## `swb start`
+
+Start it
+
+```
+USAGE
+  $ swb start
+
+DESCRIPTION
+  Start it
+
+EXAMPLES
+  TODO :)
+```
+
+_See code: [src/commands/start.ts](https://github.com/gcpreston/swb/blob/v0.1.0/src/commands/start.ts)_
+<!-- commandsstop -->
+* [`swb start`](#swb-start)
 * [`swb help [COMMAND]`](#swb-help-command)
 
 ## `swb start`
