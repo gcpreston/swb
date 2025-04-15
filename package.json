@@ -4,7 +4,7 @@
   "version": "0.1.2",
   "author": "Graham Preston",
   "bin": {
-    "swb": "./bin/run.js"
+    "swb": "bin/run.js"
   },
   "bugs": "https://github.com/gcpreston/slippi-web-bridge/issues",
   "dependencies": {
@@ -65,7 +65,10 @@
       "identifier": "com.swb.cli"
     }
   },
-  "repository": "github:gcpreston/swb",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gcpreston/swb.git"
+  },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
     "lint": "eslint",
