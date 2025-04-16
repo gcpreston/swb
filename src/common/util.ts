@@ -11,7 +11,7 @@ type PlayerInfo = {
  * Expects a 1v1 match for now.
  */
 export function playerInfo(players: PlayerType[]): { player1: PlayerInfo, player2: PlayerInfo } {
-  const filteredPlayers = players.filter(p => p.characterId && p.characterId < 26);
+  const filteredPlayers = players.filter(p => p.type !== null && p.type < 3);
   if (filteredPlayers.length !== 2) throw TypeError;
 
   const port1 = filteredPlayers[0].port;

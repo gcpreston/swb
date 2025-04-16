@@ -13,8 +13,6 @@ import Status from "./Status.js";
 import Versus from "./Versus.js";
 import Footer from "./Footer.js";
 
-// const LOCAL_WEB = "ws://localhost:4000/bridge_socket/websocket";
-
 type HomeProps = {
   sink: string
 };
