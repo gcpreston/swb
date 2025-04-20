@@ -2,8 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Box, useApp, useInput } from "ink";
 import {
   Bridge,
-  SLIPPI_LOCAL_ADDR,
-  SLIPPI_PORTS,
   BridgeEvent,
   DisconnectReason,
   GameStartType
@@ -32,12 +30,12 @@ const Home = ({ sink }: HomeProps) => {
   const { exit } = useApp();
 
   useEffect(() => {
-    const bridge = new Bridge();
+    const bridge = new Bridge({ server: false });
     setBridge(bridge);
 
-    bridge.connect(SLIPPI_LOCAL_ADDR, SLIPPI_PORTS.DEFAULT, sink);
+    bridge.connectToRelayServer(sink);
 
-    bridge.on(BridgeEvent.WS_CONNECTED, (bridgeId: string) => {
+    bridge.on(BridgeEvent.RELAY_CONNECTED, (bridgeId: string) => {
       setBridgeId(bridgeId);
     });
     bridge.on(BridgeEvent.SLIPPI_CONNECTED, () => {

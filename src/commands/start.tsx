@@ -2,9 +2,10 @@ import { Command, Flags } from '@oclif/core'
 import { render } from 'ink';
 import React from 'react';
 import patchConsole from 'patch-console';
-import { DEFAULT_WEB_URL } from 'slippi-web-bridge';
 
 import Home from '../components/Home.js';
+
+const SPECTATOR_MODE_DEFAULT_URL = "ws://spectator-mode.fly.dev/bridge_socket/websocket";
 
 export default class Start extends Command {
   static description = 'Start it';
@@ -18,7 +19,7 @@ export default class Start extends Command {
 
   async run(): Promise<void> {
     const { flags } = await this.parse(Start);
-		const sink = flags.sink || DEFAULT_WEB_URL
+		const sink = flags.sink || SPECTATOR_MODE_DEFAULT_URL
 
 		// Don't show any console output from slippi-js or slippi-web-bridge
 		patchConsole((_stream, _data) => {});
