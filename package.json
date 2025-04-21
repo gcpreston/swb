@@ -1,7 +1,7 @@
 {
   "name": "@gcpreston/swb",
   "description": "A simple CLI for slippi-web-bridge.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "Graham Preston",
   "bin": {
     "swb": "bin/run.js"
@@ -13,7 +13,7 @@
     "ink-spinner": "^5.0.0",
     "patch-console": "^2.0.0",
     "react": "^18.3.1",
-    "slippi-web-bridge": "^0.2.0"
+    "slippi-web-bridge": "^0.2.1"
   },
   "devDependencies": {
     "@eslint/compat": "^1",

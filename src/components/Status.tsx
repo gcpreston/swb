@@ -18,10 +18,10 @@ const Status = ({ bridgeId, slippiConnected, disconnectReason }: StatusProps) =>
     let slippiReason: string | null = null;
 
     switch (disconnectReason) {
-      case DisconnectReason.WS_TIMEOUT:
+      case DisconnectReason.RELAY_TIMEOUT:
         serverReason = " (timeout)";
         break;
-      case DisconnectReason.WS_DISCONNECT:
+      case DisconnectReason.RELAY_DISCONNECT:
         serverReason = " (disconnect)";
         break;
       case DisconnectReason.SLIPPI_TIMEOUT:

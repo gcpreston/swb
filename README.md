@@ -20,7 +20,7 @@ $ npm install -g @gcpreston/swb
 $ swb COMMAND
 running command...
 $ swb (--version)
-@gcpreston/swb/0.1.5 darwin-arm64 node-v23.10.0
+@gcpreston/swb/0.1.6 darwin-arm64 node-v23.10.0
 $ swb --help [COMMAND]
 USAGE
   $ swb COMMAND
@@ -49,7 +49,7 @@ EXAMPLES
   TODO :)
 ```
 
-_See code: [src/commands/start.ts](https://github.com/gcpreston/swb/blob/v0.1.5/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/gcpreston/swb/blob/v0.1.6/src/commands/start.ts)_
 <!-- commandsstop -->
 * [`swb start`](#swb-start)
 * [`swb help [COMMAND]`](#swb-help-command)
