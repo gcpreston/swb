@@ -5,7 +5,7 @@ import patchConsole from 'patch-console';
 
 import Home from '../components/Home.js';
 
-const SPECTATOR_MODE_DEFAULT_URL = "ws://spectator-mode.fly.dev/bridge_socket/websocket";
+const SPECTATOR_MODE_DEFAULT_URL = "wss://spectator-mode.fly.dev/bridge_socket/websocket";
 
 export default class Start extends Command {
   static description = 'Start it';
