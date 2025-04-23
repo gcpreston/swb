@@ -2,6 +2,8 @@ import { Command, Flags } from '@oclif/core'
 import { render } from 'ink';
 import React from 'react';
 import patchConsole from 'patch-console';
+import fs from "node:fs";
+import path from "node:path";
 
 import Home from '../components/Home.js';
 
@@ -19,10 +21,18 @@ export default class Start extends Command {
 
   async run(): Promise<void> {
     const { flags } = await this.parse(Start);
-		const sink = flags.sink || SPECTATOR_MODE_DEFAULT_URL
+		const sink = flags.sink || SPECTATOR_MODE_DEFAULT_URL;
+
+		const logDir = "/tmp/swb/";
+		if (!fs.existsSync(logDir)){
+			fs.mkdirSync(logDir, { recursive: true });
+		}
+		const logFile = fs.createWriteStream(path.join(logDir, "debug.log"), { flags : "w" });
 
 		// Don't show any console output from slippi-js or slippi-web-bridge
-		patchConsole((_stream, _data) => {});
+		patchConsole((stream, data) => {
+			logFile.write(`${new Date().toISOString()} [${stream}] ${data}`);
+		});
 
 		const app = render(<Home sink={sink} />, { patchConsole: false });
 		await app.waitUntilExit();
@@ -32,6 +42,9 @@ export default class Start extends Command {
 		// to enet not totally shutting down.
 		// For this reason, the process is manually exited at the end, as this mimics
 		// the behavior of the Ctrl + C which would otherwise have to be performed.
-		process.exit();
+		// Wrap in setTimeout to give error boundary time to render and log before exit.
+		setTimeout(() => {
+			process.exit();
+		}, 100);
   }
 }
