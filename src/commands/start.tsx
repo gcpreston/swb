@@ -10,9 +10,10 @@ import Home from '../components/Home.js';
 const SPECTATOR_MODE_DEFAULT_URL = "wss://spectator-mode.fly.dev/bridge_socket/websocket";
 
 export default class Start extends Command {
-  static description = 'Start it';
+  static description = "Start the web bridge. Connects to a relay which by default is located at wss://spectator-mode.fly.dev/bridge_socket/websocket.";
   static examples = [
-    `TODO :)`,
+    "swb start",
+		"swb start --sink ws://localhost:4000/bridge_socket/websocket"
   ];
 
 	static flags = {
@@ -29,7 +30,8 @@ export default class Start extends Command {
 		}
 		const logFile = fs.createWriteStream(path.join(logDir, "debug.log"), { flags : "w" });
 
-		// Don't show any console output from slippi-js or slippi-web-bridge
+		// Redirect output and errors from slippi-js, slippi-web-bridge, and other
+		// underlying libraries to the log file.
 		patchConsole((stream, data) => {
 			logFile.write(`${new Date().toISOString()} [${stream}] ${data}`);
 		});
