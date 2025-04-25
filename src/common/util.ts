@@ -19,7 +19,7 @@ export function playerInfo(players: PlayerType[]): { player1: PlayerInfo, player
   const characterId1 = filteredPlayers[0].characterId;
   const characterId2 = filteredPlayers[1].characterId;
 
-  if (!characterId1 || !characterId2) throw TypeError;
+  if (characterId1 === null || characterId2 === null) throw TypeError;
 
   return {
     player1: {
