@@ -35,7 +35,8 @@ const Home = ({ sink }: HomeProps) => {
 
     bridge.connectToRelayServer(sink);
 
-    bridge.on(BridgeEvent.RELAY_CONNECTED, (bridgeId: string) => {
+    bridge.on(BridgeEvent.RELAY_CONNECTED, (data) => {
+      const { bridge_id: bridgeId } = JSON.parse(data);
       setBridgeId(bridgeId);
     });
     bridge.on(BridgeEvent.SLIPPI_CONNECTED, () => {
