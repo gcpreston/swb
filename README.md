@@ -20,7 +20,7 @@ $ npm install -g @gcpreston/swb
 $ swb COMMAND
 running command...
 $ swb (--version)
-@gcpreston/swb/0.1.7 darwin-arm64 node-v18.20.8
+@gcpreston/swb/0.1.9 darwin-arm64 node-v23.10.0
 $ swb --help [COMMAND]
 USAGE
   $ swb COMMAND
@@ -29,30 +29,7 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`swb start`](#swb-start)
 
-## `swb start`
-
-Start the web bridge. Connects to a relay which by default is located at wss://spectator-mode.fly.dev/bridge_socket/websocket.
-
-```
-USAGE
-  $ swb start [--sink <value>]
-
-FLAGS
-  --sink=<value>
-
-DESCRIPTION
-  Start the web bridge. Connects to a relay which by default is located at
-  wss://spectator-mode.fly.dev/bridge_socket/websocket.
-
-EXAMPLES
-  $ swb start
-
-  $ swb start --sink ws://localhost:4000/bridge_socket/websocket
-```
-
-_See code: [src/commands/start.ts](https://github.com/gcpreston/swb/blob/v0.1.7/src/commands/start.ts)_
 <!-- commandsstop -->
 * [`swb start`](#swb-start)
 * [`swb help [COMMAND]`](#swb-help-command)

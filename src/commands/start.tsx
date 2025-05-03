@@ -28,12 +28,22 @@ export default class Start extends Command {
 		if (!fs.existsSync(logDir)){
 			fs.mkdirSync(logDir, { recursive: true });
 		}
-		const logFile = fs.createWriteStream(path.join(logDir, "debug.log"), { flags : "w" });
+		const logFile = fs.createWriteStream(path.join(logDir, "debug.log"), { flags: "w" });
+		const errorFile = fs.createWriteStream(path.join(logDir, "error.log"), { flags: "w" });
 
 		// Redirect output and errors from slippi-js, slippi-web-bridge, and other
 		// underlying libraries to the log file.
 		patchConsole((stream, data) => {
-			logFile.write(`${new Date().toISOString()} [${stream}] ${data}`);
+			const log = `${new Date().toISOString()} [${stream}] ${data}`;
+			if (stream === "stderr") {
+				errorFile.write(log);
+			} else {
+				logFile.write(log);
+			}
+		});
+
+		process.on("uncaughtException", (error) => {
+			console.error("Uncaught exception:", error);
 		});
 
 		const app = render(<Home sink={sink} />, { patchConsole: false });
