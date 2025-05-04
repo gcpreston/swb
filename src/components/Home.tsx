@@ -2,21 +2,55 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Box, useApp, useInput } from "ink";
 import {
   Bridge,
-  BridgeEvent,
   DisconnectReason,
-  GameStartType
+  SpectatorModeAdapter,
+  IStreamAdapter
 } from "slippi-web-bridge";
+import slp from "@slippi/slippi-js"
+const { Command: SlpCommand, SlpStream, SlpStreamMode, SlpStreamEvent } = slp;
+import { EventEmitter } from "node:events";
 
 import Status from "./Status.js";
 import Versus from "./Versus.js";
 import Footer from "./Footer.js";
+import { GameStartType } from "@slippi/slippi-js";
+
+class LocalAdapter extends EventEmitter implements IStreamAdapter {
+  public name = "local-adapter";
+  private slpStream = new SlpStream({ mode: SlpStreamMode.AUTO });
+
+  constructor() {
+    super()
+    this.slpStream.on(SlpStreamEvent.COMMAND, (data) => {
+      const { command, payload } = data;
+
+      switch (command) {
+        case SlpCommand.GAME_START:
+          this.emit("game-start", payload);
+          break;
+        case SlpCommand.GAME_END:
+          this.emit("game-end");
+          break;
+      }
+    });
+  }
+
+  public async connect() {} // nothing to do
+
+  public disconnect() {
+    this.slpStream.end();
+  }
+
+  public receive(packet: Buffer) {
+    this.slpStream.write(packet);
+  }
+}
 
 type HomeProps = {
-  sink: string
+  bridge: Bridge
 };
 
-const Home = ({ sink }: HomeProps) => {
-  const [bridge, setBridge] = useState<Bridge | undefined>(undefined);
+const Home = ({ bridge }: HomeProps) => {
   const [bridgeId, setBridgeId] = useState<string | null>(null);
   const [slippiConnected, setSlippiConnected] = useState<boolean>(false);
   const [gameSettings, setGameSettings] = useState<GameStartType | null>(null);
@@ -30,25 +64,24 @@ const Home = ({ sink }: HomeProps) => {
   const { exit } = useApp();
 
   useEffect(() => {
-    const bridge = new Bridge({ server: false });
-    setBridge(bridge);
+    const relayAdapter = new SpectatorModeAdapter("ws://localhost:4000/bridge_socket/websocket");
+    const localAdapter = new LocalAdapter();
+    bridge.pipeTo(relayAdapter);
 
-    bridge.connectToRelayServer(sink);
-
-    bridge.on(BridgeEvent.RELAY_CONNECTED, (data) => {
+    relayAdapter.on("connect", (data) => {
       const { bridge_id: bridgeId } = JSON.parse(data);
       setBridgeId(bridgeId);
     });
-    bridge.on(BridgeEvent.SLIPPI_CONNECTED, () => {
-      setSlippiConnected(true);
-    });
-    bridge.on(BridgeEvent.GAME_START, (payload: GameStartType) => {
+    localAdapter.on("game-start", (payload: GameStartType) => {
       setGameSettings(payload);
     });
-    bridge.on(BridgeEvent.GAME_END, () => {
+    bridge.on("game-end", () => {
       setGameSettings(null);
     })
-    bridge.on(BridgeEvent.DISCONNECTED, (reason: DisconnectReason) => {
+    bridge.on("slippi-connected", () => {
+      setSlippiConnected(true);
+    });
+    bridge.on("close", (reason: DisconnectReason) => {
       setDisconnectReason(reason);
       // Give the app time to render disconnection status before exiting.
       setTimeout(exit, 100);
@@ -61,7 +94,7 @@ const Home = ({ sink }: HomeProps) => {
 
 	useInput((input, key) => {
 	  if (input === "q" || key.escape) {
-      bridge?.quit();
+      bridge.quit();
 	  }
 	});
 

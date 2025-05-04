@@ -4,6 +4,7 @@ import React from 'react';
 import patchConsole from 'patch-console';
 import fs from "node:fs";
 import path from "node:path";
+import { Bridge } from 'slippi-web-bridge';
 
 import Home from '../components/Home.js';
 
@@ -23,6 +24,7 @@ export default class Start extends Command {
   async run(): Promise<void> {
     const { flags } = await this.parse(Start);
 		const sink = flags.sink || SPECTATOR_MODE_DEFAULT_URL;
+		// TODO: Pass sink
 
 		const logDir = "/tmp/swb/";
 		if (!fs.existsSync(logDir)){
@@ -46,7 +48,8 @@ export default class Start extends Command {
 			console.error("Uncaught exception:", error);
 		});
 
-		const app = render(<Home sink={sink} />, { patchConsole: false });
+		const bridge = new Bridge("dolphin");
+		const app = render(<Home bridge={bridge} />, { patchConsole: false });
 		await app.waitUntilExit();
 
 		// After DolphinConnection disconnect, the node process does not automatically

@@ -1,4 +1,4 @@
-import { PlayerType } from "slippi-web-bridge";
+import { PlayerType } from "@slippi/slippi-js";
 import { characterNameByExternalId } from "./ids.js";
 
 type PlayerInfo = {

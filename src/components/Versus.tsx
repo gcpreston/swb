@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "ink";
-import { GameStartType } from "slippi-web-bridge";
+import { GameStartType } from "@slippi/slippi-js";
 
 import GameDisplay from "./GameDisplay.js";
 
