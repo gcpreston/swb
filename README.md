@@ -20,7 +20,7 @@ $ npm install -g @gcpreston/swb
 $ swb COMMAND
 running command...
 $ swb (--version)
-@gcpreston/swb/0.1.11 darwin-arm64 node-v23.10.0
+@gcpreston/swb/0.1.12 darwin-arm64 node-v23.10.0
 $ swb --help [COMMAND]
 USAGE
   $ swb COMMAND
