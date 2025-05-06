@@ -21,9 +21,6 @@ const Status = ({ bridgeId, slippiConnected, disconnectReason }: StatusProps) =>
       case DisconnectReason.RELAY_TIMEOUT:
         serverReason = " (timeout)";
         break;
-      case DisconnectReason.RELAY_DISCONNECT:
-        serverReason = " (disconnect)";
-        break;
       case DisconnectReason.SLIPPI_TIMEOUT:
         slippiReason = " (timeout)";
         break;
