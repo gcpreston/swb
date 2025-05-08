@@ -47,12 +47,12 @@ const Home = ({ sink }: HomeProps) => {
     });
     bridge.on(BridgeEvent.GAME_END, () => {
       setGameSettings(null);
-    })
+    });
     bridge.on(BridgeEvent.DISCONNECTED, (reason: DisconnectReason) => {
       setDisconnectReason(reason);
       // Give the app time to render disconnection status before exiting.
       setTimeout(exit, 100);
-    })
+    });
 
     return () => {
       bridge.removeAllListeners();

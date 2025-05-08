@@ -20,7 +20,7 @@ $ npm install -g @gcpreston/swb
 $ swb COMMAND
 running command...
 $ swb (--version)
-@gcpreston/swb/0.1.13 darwin-arm64 node-v23.10.0
+@gcpreston/swb/0.1.14 darwin-arm64 node-v23.10.0
 $ swb --help [COMMAND]
 USAGE
   $ swb COMMAND
@@ -52,7 +52,7 @@ EXAMPLES
   $ swb start --sink ws://localhost:4000/bridge_socket/websocket
 ```
 
-_See code: [src/commands/start.ts](https://github.com/gcpreston/swb/blob/v0.1.13/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/gcpreston/swb/blob/v0.1.14/src/commands/start.ts)_
 <!-- commandsstop -->
 * [`swb start`](#swb-start)
 * [`swb help [COMMAND]`](#swb-help-command)

@@ -7,7 +7,7 @@ import path from "node:path";
 
 import Home from '../components/Home.js';
 
-const SPECTATOR_MODE_DEFAULT_URL = "wss://spectator-mode.fly.dev/bridge_socket/websocket";
+const SPECTATOR_MODE_DEFAULT_URL = "wss://ssbm.tv/bridge_socket/websocket";
 
 export default class Start extends Command {
   static description = "Start the web bridge. Connects to a relay which by default is located at wss://spectator-mode.fly.dev/bridge_socket/websocket.";
