@@ -1,3 +1,7 @@
+**This repo is archived in favor of https://github.com/gcpreston/swb-rs, which is now the actively maintained version of the client for ssbm.tv.**
+
+=================
+
 swb
 =================
 
